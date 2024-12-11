@@ -14,8 +14,14 @@ Route::get('/home',function (){
 Route::get('/about',function (){
     return view('components.layouts.about');
 })->middleware('auth')->name('about');
+
+/* Products */
 Route::get('/products',[ProductsController::class,'index']);
 Route::get('/products/add',[ProductsController::class,'add']);
+Route::get('/products/{product}',[ProductsController::class,'show']);
+Route::post('/products',[ProductsController::class,'create']);
+
+/* Auth */
 Route::get('/users/login',function (){
     return view('components.auth.login');
 })->name('login');

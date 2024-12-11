@@ -16,13 +16,29 @@ class ProductsController extends Controller
         return view('components.products.addproduct');
     }
     public function show($product){
-        return view();
+        $product = Product::find($product);
+        return view('components.products.singleproduct',['product'=>$product]);
     }
     public function create(Request $request){
         $validated = $request->validate([
-            'name'=>['required',]
+            'name'=>['required'],
+            'weight'=>['required','numeric'],
+            'description'=>['required','min:20'],
+            'price'=>['required','numeric'],
+            'image'=>['required','image','max:2024'],
+            'quantity'=>['required','numeric'],
         ]);
+        if($request->file('image')->isValid() && $request->hasFile('image')){
+            $imageName = now()->format('d_m_Y_H_i_s') . '_' . $request->file('image')->getClientOriginalName();
+
+        // Store the image in the 'products' folder in the public disk
+        $path = $request->file('image')->storeAs('products', $imageName, 'public');
+
+        // Add the image path to the validated data array
+        $validated['image'] = $path;
+        }
 
         Product::create($validated);
+        return back()->with('success','Product Created Success');
     }
 }
