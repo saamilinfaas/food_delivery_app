@@ -20,11 +20,31 @@
                 <p class="text-center"><span class="font-bold">Available QTY: </span>{{$product->quantity}}</p>
 
                 <div>
-                    <button class="bg-purple-200 text-puple-700 font-bold text-lg px-4 py-2 rounded-full mt-2 hover:bg-purple-400">Add to Cart</button>
+                    @if ($cart == null )
+                    <form action="/purchase" method="post">
+                        @csrf
+                        <div>
+
+                            <label for="quantity" class="font-bold">Quantity : </label>
+                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                            <input type="number" name="quantity" id="quantity" class="rounded-xl w-[75px] bg-purple-300" value="1">
+                            <button class="bg-purple-200 text-puple-700 font-bold text-lg px-4 py-2 rounded-full mt-2 hover:bg-purple-300" type="submit">Add to Cart</button>
+
+                        </div>
+                    </form>
+                    @endif
+
+                    @if ($cart)
+                    <form action="{{route('purchase.destroy',$cart->id)}}" method="POST">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="bg-purple-300 px-4 py-2 rounded-full hover:bg-purple-600 mt-2">Remove Cart</button>
+                        </form>
+                    @endif
+
                 </div>
 
             </div>
-
 
         </div>
         <div class="m-4">
@@ -35,4 +55,19 @@
     </div>
 @endisset
 
+<script>
+    const addcart = ()=>{
+
+    }
+</script>
+
 @endsection
+
+
+
+
+
+
+
+
+

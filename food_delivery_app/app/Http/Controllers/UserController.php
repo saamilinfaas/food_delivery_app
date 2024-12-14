@@ -34,9 +34,10 @@ class UserController extends Controller
             'password'=>['required'],
             'email'=>['required']
         ]);
-        $auth = Auth::attempt($validated);
+        $remember = $request->has('remeber');
+        $auth = Auth::attempt($validated,$remember);
         if($auth){
-            return to_route('about',['auth'=>$auth]);
+            return to_route('about');
         }else{
             return view('components.auth.login')->with('error','unauthenticated');
         }
