@@ -2,7 +2,7 @@
 @section('title','Cart List')
 @section('content')
 
-<div class="text-white ">
+<div class="dark:text-white ">
 
     <table class="border">
         <thead class="border">

@@ -17,6 +17,10 @@ Route::get('/about',function (){
     return view('components.layouts.about');
 })->middleware('auth')->name('about');
 
+/* Profile */
+
+Route::get('/profile',[]);
+
 /*  products Categories */
 Route::get('/products/category',[CategoryController::class,'index'])->name('showcategory');
 Route::get('/products/category/add',[CategoryController::class,'add'])->name('addcategory');

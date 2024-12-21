@@ -27,10 +27,15 @@ class ProductsController extends Controller
 
     public function show($id){
         $product = Product::find($id);
-        $user_id = auth()->user()->id;
+        if(auth()->user()){
+            $user_id = auth()->user()->id ;
         $cart = Cart::where('user_id',$user_id)->where('product_id',$id)->first();
 
         return view('components.products.singleproduct',['product'=>$product,'cart'=>$cart]);
+    }else{
+            return view('components.products.singleproduct',['product'=>$product]);
+
+        }
     }
 
     public function create(Request $request){
